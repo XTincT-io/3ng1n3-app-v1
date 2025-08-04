@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base frame -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="@color/neon_cyan" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    
+    <!-- Circuit pattern overlay -->
+    <item>
+        <bitmap
+            android:src="@drawable/circuit_pattern"
+            android:tileMode="repeat"
+            android:alpha="0.3" />
+    </item>
+    
+    <!-- Circuit nodes - corners -->
+    <item
+        android:width="16dp"
+        android:height="16dp"
+        android:gravity="top|left">
+        <shape android:shape="oval">
+            <solid android:color="@color/neon_cyan" />
+        </shape>
+    </item>
+    
+    <item
+        android:width="16dp"
+        android:height="16dp"
+        android:gravity="top|right">
+        <shape android:shape="oval">
+            <solid android:color="@color/neon_cyan" />
+        </shape>
+    </item>
+    
+    <item
+        android:width="16dp"
+        android:height="16dp"
+        android:gravity="bottom|left">
+        <shape android:shape="oval">
+            <solid android:color="@color/neon_cyan" />
+        </shape>
+    </item>
+    
+    <item
+        android:width="16dp"
+        android:height="16dp"
+        android:gravity="bottom|right">
+        <shape android:shape="oval">
+            <solid android:color="@color/neon_cyan" />
+        </shape>
+    </item>
+    
+    <!-- Circuit traces - horizontal -->
+    <item android:left="16dp" android:right="16dp" android:top="8dp" android:bottom="232dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_cyan" />
+            <size android:height="1dp" />
+        </shape>
+    </item>
+    
+    <item android:left="16dp" android:right="16dp" android:top="232dp" android:bottom="8dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_cyan" />
+            <size android:height="1dp" />
+        </shape>
+    </item>
+    
+    <!-- Circuit traces - vertical -->
+    <item android:top="16dp" android:bottom="16dp" android:left="8dp" android:right="232dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_cyan" />
+            <size android:width="1dp" />
+        </shape>
+    </item>
+    
+    <item android:top="16dp" android:bottom="16dp" android:left="232dp" android:right="8dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_cyan" />
+            <size android:width="1dp" />
+        </shape>
+    </item>
+    
+    <!-- Circuit components -->
+    <item android:top="100dp" android:bottom="140dp" android:left="100dp" android:right="140dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_cyan" />
+        </shape>
+    </item>
+    
+    <item android:top="80dp" android:bottom="160dp" android:left="80dp" android:right="160dp">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="1dp"
+                android:color="@color/neon_cyan" />
+        </shape>
+    </item>
+    
+    <!-- Diagonal traces -->
+    <item>
+        <rotate
+            android:fromDegrees="45"
+            android:pivotX="25%"
+            android:pivotY="25%">
+            <shape android:shape="line">
+                <stroke
+                    android:width="1dp"
+                    android:color="@color/neon_cyan"
+                    android:dashWidth="5dp"
+                    android:dashGap="3dp" />
+            </shape>
+        </rotate>
+    </item>
+    
+    <item>
+        <rotate
+            android:fromDegrees="-45"
+            android:pivotX="75%"
+            android:pivotY="25%">
+            <shape android:shape="line">
+                <stroke
+                    android:width="1dp"
+                    android:color="@color/neon_cyan"
+                    android:dashWidth="5dp"
+                    android:dashGap="3dp" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

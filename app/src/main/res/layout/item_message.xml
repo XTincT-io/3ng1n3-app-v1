@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <!-- Sent Message Container (right-aligned) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sent_message_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <!-- Holographic Message Background -->
+        <com.engine.app.ui.components.GlitchAnimatedDrawable
+            android:id="@+id/sent_message_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/sent_message_text"
+            app:layout_constraintEnd_toEndOf="@id/sent_message_text"
+            app:layout_constraintStart_toStartOf="@id/sent_message_text"
+            app:layout_constraintTop_toTopOf="@id/sent_message_text" />
+
+        <!-- Message Text -->
+        <TextView
+            android:id="@+id/sent_message_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cyber_font"
+            android:maxWidth="260dp"
+            android:padding="12dp"
+            android:textColor="@color/text_sent_message"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="This is a sent message with cyberpunk styling and holographic effects" />
+
+        <!-- Encryption Indicator -->
+        <ImageView
+            android:id="@+id/sent_encryption_indicator"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@string/encryption_indicator"
+            android:src="@drawable/ic_encrypted"
+            android:tint="@color/encryption_high"
+            app:layout_constraintBottom_toBottomOf="@id/sent_timestamp"
+            app:layout_constraintEnd_toStartOf="@id/sent_timestamp"
+            app:layout_constraintTop_toTopOf="@id/sent_timestamp" />
+
+        <!-- Timestamp -->
+        <TextView
+            android:id="@+id/sent_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/led_board"
+            android:textColor="@color/text_timestamp"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@id/sent_message_text"
+            app:layout_constraintTop_toBottomOf="@id/sent_message_text"
+            tools:text="22:45:01" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Received Message Container (left-aligned) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/received_message_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="64dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <!-- Holographic Message Background -->
+        <com.engine.app.ui.components.GlitchAnimatedDrawable
+            android:id="@+id/received_message_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/received_message_text"
+            app:layout_constraintEnd_toEndOf="@id/received_message_text"
+            app:layout_constraintStart_toStartOf="@id/received_message_text"
+            app:layout_constraintTop_toTopOf="@id/received_message_text" />
+
+        <!-- Message Text -->
+        <TextView
+            android:id="@+id/received_message_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cyber_font"
+            android:maxWidth="260dp"
+            android:padding="12dp"
+            android:textColor="@color/text_received_message"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="This is a received message with cyberpunk styling and holographic effects" />
+
+        <!-- Encryption Indicator -->
+        <ImageView
+            android:id="@+id/received_encryption_indicator"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="4dp"
+            android:contentDescription="@string/encryption_indicator"
+            android:src="@drawable/ic_encrypted"
+            android:tint="@color/encryption_medium"
+            app:layout_constraintBottom_toBottomOf="@id/received_timestamp"
+            app:layout_constraintStart_toEndOf="@id/received_timestamp"
+            app:layout_constraintTop_toTopOf="@id/received_timestamp" />
+
+        <!-- Timestamp -->
+        <TextView
+            android:id="@+id/received_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/led_board"
+            android:textColor="@color/text_timestamp"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@id/received_message_text"
+            app:layout_constraintTop_toBottomOf="@id/received_message_text"
+            tools:text="22:44:30" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Binary Representation (optional, shown in binary mode) -->
+    <TextView
+        android:id="@+id/binary_representation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/led_board"
+        android:gravity="center"
+        android:textColor="@color/binary_text"
+        android:textSize="8sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/sent_message_container"
+        tools:text="01001000 01100101 01101100 01101100 01101111"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

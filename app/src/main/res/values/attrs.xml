@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom attributes for CyberPanel component -->
+    <declare-styleable name="CyberPanel">
+        <!-- Color for neon effects -->
+        <attr name="neonColor" format="color" />
+        <!-- Whether widgets can be dragged by the user -->
+        <attr name="widgetsDraggable" format="boolean" />
+        <!-- Engine sound profile for audio feedback -->
+        <attr name="engineSoundProfile" format="string" />
+        <!-- Density of the grid lines -->
+        <attr name="gridDensity" format="float" />
+        <!-- Opacity of the grid lines (0.0-1.0) -->
+        <attr name="gridOpacity" format="float" />
+    </declare-styleable>
+    
+    <!-- Custom attributes for Widget component -->
+    <declare-styleable name="Widget">
+        <!-- Widget identifier -->
+        <attr name="name" format="string" />
+        <!-- X position (0.0-1.0) -->
+        <attr name="x" format="float" />
+        <!-- Y position (0.0-1.0) -->
+        <attr name="y" format="float" />
+        <!-- Widget width as percentage of parent (0.0-1.0) -->
+        <attr name="widthPercent" format="float" />
+        <!-- Widget height as percentage of parent (0.0-1.0) -->
+        <attr name="heightPercent" format="float" />
+    </declare-styleable>
+    
+    <!-- Custom attributes for GlitchTextView component -->
+    <declare-styleable name="GlitchTextView">
+        <!-- Intensity of the glitch effect (0.0-1.0) -->
+        <attr name="glitchIntensity" format="float" />
+        <!-- Frequency of glitch occurrences (0.0-1.0) -->
+        <attr name="glitchFrequency" format="float" />
+        <!-- Whether to show scan lines effect -->
+        <attr name="showScanLines" format="boolean" />
+        <!-- Whether to show binary representation -->
+        <attr name="showBinary" format="boolean" />
+    </declare-styleable>
+    
+    <!-- Custom attributes for BinaryDisplayView component -->
+    <declare-styleable name="BinaryDisplayView">
+        <!-- Speed of scrolling binary data (pixels per frame) -->
+        <attr name="scrollSpeed" format="integer" />
+        <!-- Density of binary columns (0.0-1.0) -->
+        <attr name="density" format="float" />
+        <!-- Probability of highlighting a column (0.0-1.0) -->
+        <attr name="highlightProbability" format="float" />
+        <!-- Whether to show scan lines effect -->
+        <attr name="showScanLines" format="boolean" />
+        <!-- Base color for binary digits -->
+        <attr name="baseColor" format="color" />
+        <!-- Highlight color for emphasized binary digits -->
+        <attr name="highlightColor" format="color" />
+    </declare-styleable>
+    
+    <!-- Custom attributes for EncryptionGauge component -->
+    <declare-styleable name="EncryptionGauge">
+        <!-- Current encryption level (0.0-1.0) -->
+        <attr name="encryptionLevel" format="float" />
+        <!-- Maximum value for the gauge -->
+        <attr name="maxValue" format="float" />
+        <!-- Color for low encryption level -->
+        <attr name="lowColor" format="color" />
+        <!-- Color for medium encryption level -->
+        <attr name="mediumColor" format="color" />
+        <!-- Color for high encryption level -->
+        <attr name="highColor" format="color" />
+    </declare-styleable>
+    
+    <!-- Custom attributes for NetworkSpeedometer component -->
+    <declare-styleable name="NetworkSpeedometer">
+        <!-- Current network latency in ms -->
+        <attr name="latency" format="integer" />
+        <!-- Maximum latency value -->
+        <attr name="maxLatency" format="integer" />
+        <!-- Whether to show digital readout -->
+        <attr name="showDigital" format="boolean" />
+        <!-- Whether to animate transitions -->
+        <attr name="animateChanges" format="boolean" />
+    </declare-styleable>
+    
+    <!-- Custom attributes for RadialMenu component -->
+    <declare-styleable name="RadialMenu">
+        <!-- Number of menu items -->
+        <attr name="itemCount" format="integer" />
+        <!-- Radius of the menu as percentage of view size -->
+        <attr name="radiusPercent" format="float" />
+        <!-- Whether to enable haptic feedback -->
+        <attr name="hapticFeedback" format="boolean" />
+        <!-- Whether to show item labels -->
+        <attr name="showLabels" format="boolean" />
+    </declare-styleable>
+</resources>

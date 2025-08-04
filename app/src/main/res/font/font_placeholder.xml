@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 
+    This is a placeholder file. In a real application, you would include actual font files:
+    
+    1. cyber_font.ttf - A futuristic, angular font for cyberpunk UI elements
+    2. led_board.ttf - A digital display font for readouts and metrics
+    
+    For development purposes, the app will fall back to system fonts if these are not available.
+    -->
+    
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/roboto_mono" />
+    
+    <font
+        android:fontStyle="italic"
+        android:fontWeight="400"
+        android:font="@font/roboto_mono_italic" />
+</font-family>

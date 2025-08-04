@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Semi-transparent background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#80000000" />
+        </shape>
+    </item>
+    
+    <!-- Horizontal lines representing digital signature -->
+    <item android:top="100dp" android:bottom="180dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_green" />
+            <size android:height="1dp" />
+        </shape>
+    </item>
+    
+    <item android:top="110dp" android:bottom="170dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_blue" />
+            <size android:height="1dp" />
+        </shape>
+    </item>
+    
+    <item android:top="120dp" android:bottom="160dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_cyan" />
+            <size android:height="1dp" />
+        </shape>
+    </item>
+    
+    <!-- Vertical signature lines -->
+    <item android:left="40dp" android:right="240dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_green" />
+            <size android:width="1dp" />
+        </shape>
+    </item>
+    
+    <item android:left="80dp" android:right="200dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_blue" />
+            <size android:width="1dp" />
+        </shape>
+    </item>
+    
+    <item android:left="120dp" android:right="160dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/neon_cyan" />
+            <size android:width="1dp" />
+        </shape>
+    </item>
+    
+    <!-- Digital signature pattern -->
+    <item>
+        <bitmap
+            android:src="@drawable/digital_signature_pattern"
+            android:tileMode="repeat"
+            android:alpha="0.3" />
+    </item>
+    
+    <!-- Hexadecimal code overlay -->
+    <item>
+        <bitmap
+            android:src="@drawable/hex_code_overlay"
+            android:tileMode="repeat"
+            android:alpha="0.2" />
+    </item>
+    
+    <!-- Signature border -->
+    <item android:top="90dp" android:bottom="90dp" android:left="30dp" android:right="30dp">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="@color/neon_green"
+                android:dashWidth="10dp"
+                android:dashGap="5dp" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,70 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Engine3App" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/neon_green</item>
+        <item name="colorPrimaryVariant">@color/neon_green_dark</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/cyber_blue</item>
+        <item name="colorSecondaryVariant">@color/cyber_blue_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/black</item>
+        <!-- Background color. -->
+        <item name="android:windowBackground">@color/dark_background</item>
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/neon_green</item>
+        <item name="android:textColorSecondary">@color/cyber_blue</item>
+        <!-- Font family -->
+        <item name="fontFamily">@font/cyber_font</item>
+        <!-- Customize your theme here. -->
+        <item name="android:navigationBarColor">@color/black</item>
+    </style>
+    
+    <style name="Theme.Engine3App.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    
+    <!-- Text Styles -->
+    <style name="TextAppearance.Engine3App.Headline" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/cyber_font</item>
+        <item name="android:textColor">@color/neon_green</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    
+    <style name="TextAppearance.Engine3App.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/led_board</item>
+        <item name="android:textColor">@color/neon_green</item>
+    </style>
+    
+    <style name="TextAppearance.Engine3App.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/led_board</item>
+        <item name="android:textColor">@color/cyber_blue</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    
+    <!-- Button Styles -->
+    <style name="Widget.Engine3App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/transparent</item>
+        <item name="strokeColor">@color/neon_green</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:textColor">@color/neon_green</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="fontFamily">@font/cyber_font</item>
+        <item name="android:letterSpacing">0.1</item>
+    </style>
+    
+    <!-- HUD Component Styles -->
+    <style name="Widget.Engine3App.HUDPanel">
+        <item name="android:background">@drawable/hud_panel_background</item>
+        <item name="android:padding">16dp</item>
+    </style>
+    
+    <style name="Widget.Engine3App.GaugeView">
+        <item name="android:background">@drawable/gauge_background</item>
+    </style>
+</resources>

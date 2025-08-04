@@ -1,0 +1,75 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">3ng1n3</string>
+    
+    <!-- Main Navigation -->
+    <string name="nav_chat">Cyber Chat</string>
+    <string name="nav_dashboard">HUD Dashboard</string>
+    <string name="nav_cnft">cNFT Minter</string>
+    <string name="nav_settings">Customize</string>
+    
+    <!-- Chat Screen -->
+    <string name="chat_placeholder">Type your message…</string>
+    <string name="chat_send">TRANSMIT</string>
+    <string name="chat_encryption_status">ENCRYPTION: ACTIVE</string>
+    <string name="chat_network_status">NETWORK: ONLINE</string>
+    <string name="chat_empty">No messages in datastream…</string>
+    
+    <!-- Dashboard Customization -->
+    <string name="customize_title">HUD GARAGE</string>
+    <string name="customize_color">Neon Paint</string>
+    <string name="customize_layout">Component Layout</string>
+    <string name="customize_sound">Engine Sound</string>
+    <string name="customize_save">SAVE CONFIG</string>
+    <string name="customize_reset">FACTORY RESET</string>
+    
+    <!-- Color Presets -->
+    <string name="color_neon_green">Toxic Green</string>
+    <string name="color_cyber_blue">Corp Blue</string>
+    <string name="color_riot_purple">Riot Purple</string>
+    <string name="color_hazard_orange">Hazard Orange</string>
+    <string name="color_blood_red">Blood Red</string>
+    
+    <!-- Sound Profiles -->
+    <string name="sound_tesla">TeslaCybertruck</string>
+    <string name="sound_cyber_charger">CyberCharger</string>
+    <string name="sound_diesel_punk">DieselPunk</string>
+    <string name="sound_quantum_drive">QuantumDrive</string>
+    <string name="sound_custom">Custom Tune</string>
+    
+    <!-- cNFT Minter -->
+    <string name="cnft_title">cNFT MINTER</string>
+    <string name="cnft_create">CREATE NEW</string>
+    <string name="cnft_gallery">MY COLLECTION</string>
+    <string name="cnft_mint">MINT TO CHAIN</string>
+    <string name="cnft_share">SHARE AS GRAFFITI</string>
+    <string name="cnft_generating">GENERATING DIGITAL ASSET…</string>
+    
+    <!-- Radial Menu -->
+    <string name="radial_menu_title">QUICK CONTROLS</string>
+    <string name="radial_nitro">NITRO BOOST</string>
+    <string name="radial_encrypt">MAX ENCRYPTION</string>
+    <string name="radial_scan">NETWORK SCAN</string>
+    <string name="radial_voice">VOICE CMD</string>
+    <string name="radial_theme">SWITCH THEME</string>
+    <string name="radial_mute">MUTE SOUNDS</string>
+    <string name="mint_cnft">MINT CNFT</string>
+    
+    <!-- Voice Commands -->
+    <string name="voice_command_nitro">Enable nitro mode</string>
+    <string name="voice_command_encrypt">Maximum encryption</string>
+    <string name="voice_command_theme">Switch theme</string>
+    
+    <!-- Errors & Notifications -->
+    <string name="error_connection">NETWORK ERROR: CONNECTION LOST</string>
+    <string name="error_encryption">ENCRYPTION FAILURE: REVERTING TO BASELINE</string>
+    <string name="notification_message">NEW MESSAGE RECEIVED</string>
+    <string name="notification_cnft">cNFT MINTING COMPLETE</string>
+    
+    <!-- Binary Display -->
+    <string name="binary_mode">BINARY MODE</string>
+    <string name="binary_data_stream">DATA STREAM</string>
+    <string name="decoding">DECODING...</string>
+    <string name="binary_active">BINARY ACTIVE</string>
+    <string name="binary_inactive">BINARY INACTIVE</string>
+</resources>

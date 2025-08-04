@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+    
+    <!-- Background colors -->
+    <color name="dark_background">#FF0A0A0F</color>
+    <color name="dark_surface">#FF121218</color>
+    <color name="grid_line">#33FFFFFF</color>
+    
+    <!-- Neon colors -->
+    <color name="neon_green">#FF39FF14</color>
+    <color name="neon_green_dark">#FF1A9900</color>
+    <color name="neon_green_light">#8039FF14</color>
+    
+    <color name="cyber_blue">#FF00FFFF</color>
+    <color name="cyber_blue_dark">#FF0099CC</color>
+    <color name="cyber_blue_light">#8000FFFF</color>
+    
+    <color name="riot_purple">#FFFF00FF</color>
+    <color name="riot_purple_dark">#FF990099</color>
+    <color name="riot_purple_light">#80FF00FF</color>
+    
+    <color name="hazard_orange">#FFFF9900</color>
+    <color name="hazard_orange_dark">#FFCC6600</color>
+    <color name="hazard_orange_light">#80FF9900</color>
+    
+    <color name="blood_red">#FFFF0000</color>
+    <color name="blood_red_dark">#FFCC0000</color>
+    <color name="blood_red_light">#80FF0000</color>
+    
+    <!-- UI Element colors -->
+    <color name="hud_border">#FF39FF14</color>
+    <color name="hud_shadow">#8039FF14</color>
+    <color name="hud_text">#FFFFFFFF</color>
+    
+    <!-- Status colors -->
+    <color name="status_online">#FF39FF14</color>
+    <color name="status_offline">#FFFF0000</color>
+    <color name="status_warning">#FFFF9900</color>
+    
+    <!-- Encryption level colors -->
+    <color name="encryption_low">#FFFF0000</color>
+    <color name="encryption_medium">#FFFF9900</color>
+    <color name="encryption_high">#FF39FF14</color>
+    
+    <!-- Glitch effect colors -->
+    <color name="glitch_red">#FFFF0000</color>
+    <color name="glitch_blue">#FF00FFFF</color>
+    <color name="glitch_green">#FF39FF14</color>
+</resources>

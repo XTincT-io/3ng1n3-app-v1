@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3ng1n3 App Preview</title>
+    <style>
+        :root {
+            --neon-green: #39ff14;
+            --neon-blue: #00ffff;
+            --neon-purple: #bc13fe;
+            --neon-orange: #ff9900;
+            --background-dark: #0a0a0a;
+            --background-medium: #1a1a1a;
+            --background-light: #2a2a2a;
+            --text-color: #ffffff;
+            --transition-speed: 0.3s;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--background-dark);
+            color: var(--neon-green);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .app-container {
+            width: 360px;
+            height: 640px;
+            border: 2px solid var(--neon-blue);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 20px var(--neon-blue);
+            margin-top: 20px;
+        }
+        
+        .header {
+            background-color: var(--background-medium);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--neon-blue);
+        }
+        
+        .header-title {
+            color: var(--neon-blue);
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+        
+        .encryption-status {
+            color: var(--neon-green);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .network-speedometer {
+            background-color: var(--background-light);
+            color: var(--neon-orange);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            border: 1px solid var(--neon-orange);
+        }
+        
+        .chat-area {
+            height: calc(100% - 120px);
+            overflow-y: auto;
+            padding: 15px;
+            background-color: var(--background-dark);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .sent {
+            align-self: flex-end;
+            background-color: var(--background-light);
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 5px var(--neon-blue);
+        }
+        
+        .received {
+            align-self: flex-start;
+            background-color: var(--background-light);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 5px var(--neon-green);
+        }
+        
+        .input-area {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            background-color: var(--background-medium);
+            border-top: 1px solid var(--neon-blue);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .message-input {
+            flex: 1;
+            height: 40px;
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            color: var(--text-color);
+            padding: 0 15px;
+            outline: none;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .message-input:focus {
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .send-button {
+            width: 40px;
+            height: 40px;
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-blue);
+            border-radius: 50%;
+            color: var(--neon-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+        
+        .send-button:hover {
+            background-color: var(--neon-blue);
+            color: var(--background-dark);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .menu-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-blue);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 100;
+            transition: all var(--transition-speed);
+        }
+        
+        .menu-button span {
+            width: 20px;
+            height: 2px;
+            background-color: var(--neon-blue);
+            transition: all var(--transition-speed);
+        }
+        
+        .menu-button.active {
+            background-color: var(--neon-blue);
+        }
+        
+        .menu-button.active span {
+            background-color: var(--background-dark);
+        }
+        
+        .menu-button.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        
+        .menu-button.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-button.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+        
+        .slide-menu {
+            position: absolute;
+            top: 0;
+            right: -200px;
+            width: 200px;
+            height: 100%;
+            background-color: var(--background-medium);
+            border-left: 1px solid var(--neon-blue);
+            z-index: 99;
+            transition: right var(--transition-speed);
+            display: flex;
+            flex-direction: column;
+            padding: 70px 0 0 0;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slide-menu.active {
+            right: 0;
+        }
+        
+        .app-container.menu-open .chat-area {
+            transform: translateX(-50px);
+            transition: transform var(--transition-speed);
+        }
+        
+        .app-container.menu-open .input-area {
+            transform: translateX(-50px);
+            transition: transform var(--transition-speed);
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--background-light);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+        
+        .menu-item:hover {
+            background-color: var(--background-light);
+        }
+        
+        .menu-item-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-blue);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+        
+        .menu-item-text {
+            color: var(--text-color);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        
+        .cnft-minter {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-dark);
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+        }
+        
+        .cnft-minter.active {
+            display: flex;
+        }
+        
+        .cnft-header {
+            background-color: var(--background-medium);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--neon-purple);
+        }
+        
+        .cnft-title {
+            color: var(--neon-purple);
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+        
+        .back-button {
+            background-color: var(--background-light);
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all var(--transition-speed);
+        }
+        
+        .back-button:hover {
+            background-color: var(--text-color);
+            color: var(--background-dark);
+        }
+        
+        .cnft-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .message-preview {
+            background-color: var(--background-light);
+            border: 2px solid var(--neon-purple);
+            border-radius: 15px;
+            padding: 15px;
+            color: var(--text-color);
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+        
+        .frame-selector-label {
+            color: var(--neon-purple);
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .frame-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .frame {
+            width: 60px;
+            height: 60px;
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-purple);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--neon-purple);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+        
+        .frame.selected {
+            background-color: var(--neon-purple);
+            color: var(--background-dark);
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+        
+        .payment-selector-label {
+            color: var(--neon-orange);
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .payment-selector {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .payment-token {
+            flex: 1;
+            height: 50px;
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-orange);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: bold;
+            color: var(--neon-orange);
+            transition: all var(--transition-speed);
+            padding: 5px;
+        }
+        
+        .payment-token:hover {
+            background-color: var(--neon-orange);
+            color: var(--background-dark);
+            box-shadow: 0 0 10px var(--neon-orange);
+        }
+        
+        .payment-token.selected {
+            background-color: var(--neon-orange);
+            color: var(--background-dark);
+            box-shadow: 0 0 10px var(--neon-orange);
+        }
+        
+        .token-symbol {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .token-balance {
+            font-size: 9px;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+        
+        .minting-cost {
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-orange);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            color: var(--neon-orange);
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .mint-button {
+            background-color: var(--background-light);
+            border: 2px solid var(--neon-purple);
+            border-radius: 25px;
+            color: var(--neon-purple);
+            padding: 12px 0;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .mint-button:hover {
+            background-color: var(--neon-purple);
+            color: var(--background-dark);
+            box-shadow: 0 0 15px var(--neon-purple);
+        }
+        
+        .minting-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.9);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 300;
+        }
+        
+        .minting-animation.active {
+            display: flex;
+        }
+        
+        /* Binary Translator Styles */
+        .binary-translator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-dark);
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+        }
+        
+        .binary-translator.active {
+            display: flex;
+        }
+        
+        .binary-header {
+            background-color: var(--background-medium);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--neon-green);
+        }
+        
+        .binary-title {
+            color: var(--neon-green);
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+        
+        .binary-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .conversion-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .conversion-label {
+            color: var(--neon-green);
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .conversion-dropdown {
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-green);
+            border-radius: 8px;
+            color: var(--text-color);
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            outline: none;
+        }
+        
+        .conversion-dropdown:focus {
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        
+        .input-textarea {
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-green);
+            border-radius: 8px;
+            color: var(--text-color);
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            min-height: 100px;
+            outline: none;
+        }
+        
+        .input-textarea:focus {
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        
+        .output-textarea {
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-blue);
+            border-radius: 8px;
+            color: var(--neon-blue);
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            min-height: 100px;
+            outline: none;
+            box-shadow: 0 0 5px var(--neon-blue);
+        }
+        
+        .convert-button {
+            background-color: var(--background-light);
+            border: 2px solid var(--neon-green);
+            border-radius: 25px;
+            color: var(--neon-green);
+            padding: 12px 0;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .convert-button:hover {
+            background-color: var(--neon-green);
+            color: var(--background-dark);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .action-button {
+            background-color: var(--background-light);
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            color: var(--neon-blue);
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            font-family: 'Courier New', monospace;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .action-button:hover {
+            background-color: var(--neon-blue);
+            color: var(--background-dark);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .spinner {
+            width: 100px;
+            height: 100px;
+            border: 5px solid transparent;
+            border-top: 5px solid var(--neon-purple);
+            border-right: 5px solid var(--neon-blue);
+            border-bottom: 5px solid var(--neon-green);
+            border-left: 5px solid var(--neon-orange);
+            border-radius: 50%;
+            animation: rotate 2s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        .minting-text {
+            color: var(--neon-purple);
+            font-size: 18px;
+            letter-spacing: 2px;
+            animation: blink 1s infinite alternate;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            from { box-shadow: 0 0 20px var(--neon-purple); }
+            to { box-shadow: 0 0 40px var(--neon-purple); }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes blink {
+            from { opacity: 0.7; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes scanEffect {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); margin: 20px 0;">3ng1n3 App Preview</h1>
+    
+    <div class="app-container">
+        <!-- Persistent Menu Button -->
+        <div class="menu-button" id="menuButton">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <!-- Slide Menu -->
+        <div class="slide-menu" id="slideMenu">
+            <div class="menu-item" id="walletMenuItem">
+                <div class="menu-item-icon">W</div>
+                <div class="menu-item-text">WALLET & CNFT</div>
+            </div>
+            <div class="menu-item" id="binaryMenuItem">
+                <div class="menu-item-icon">B</div>
+                <div class="menu-item-text">BINARY TRANSLATOR</div>
+            </div>
+            <div class="menu-item" id="securityMenuItem">
+                <div class="menu-item-icon">S</div>
+                <div class="menu-item-text">SECURITY CENTER</div>
+            </div>
+            <div class="menu-item" id="customizeMenuItem">
+                <div class="menu-item-icon">⚙</div>
+                <div class="menu-item-text">CUSTOMIZE</div>
+            </div>
+        </div>
+        
+        <!-- Chat Interface -->
+        <div class="header">
+            <div>
+                <div class="header-title">CYBER CHAT</div>
+                <div class="encryption-status">ENCRYPTION: ACTIVE</div>
+            </div>
+            <div class="network-speedometer">50ms</div>
+        </div>
+        
+        <div class="chat-area" id="chatArea">
+            <div class="message received">Welcome to the Cyber Network. All communications are encrypted.</div>
+            <div class="message sent">Testing the encryption protocol. Is this secure?</div>
+            <div class="message received">Affirmative. Triple-layer quantum encryption active.</div>
+            <div class="message sent" id="targetMessage">This message is worth preserving as an NFT. The code is: X7R-9PQ</div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" class="message-input" placeholder="Type your message...">
+            <div class="send-button">▶</div>
+        </div>
+        
+        <!-- CNFT Minter Interface -->
+        <div class="cnft-minter" id="cnftMinter">
+            <div class="cnft-header">
+                <button class="back-button" id="backButton">←</button>
+                <div class="cnft-title">cNFT MINTER</div>
+                <div style="width: 30px;"></div> <!-- Spacer for alignment -->
+            </div>
+            
+            <div class="cnft-content">
+                <div class="message-preview" id="messagePreview">
+                    This message is worth preserving as an NFT. The code is: X7R-9PQ
+                </div>
+                
+                <div class="frame-selector-label">SELECT FRAME:</div>
+                <div class="frame-selector">
+                    <div class="frame selected">F1</div>
+                    <div class="frame">F2</div>
+                    <div class="frame">F3</div>
+                    <div class="frame">F4</div>
+                </div>
+                
+                <div class="payment-selector-label">PAYMENT METHOD:</div>
+                <div class="payment-selector">
+                    <div class="payment-token selected" data-token="SOL">
+                        <div class="token-symbol">SOL</div>
+                        <div class="token-balance">2.45</div>
+                    </div>
+                    <div class="payment-token" data-token="BONK">
+                        <div class="token-symbol">BONK</div>
+                        <div class="token-balance">1.2M</div>
+                    </div>
+                    <div class="payment-token" data-token="USDC">
+                        <div class="token-symbol">USDC</div>
+                        <div class="token-balance">15.80</div>
+                    </div>
+                </div>
+                
+                <div class="minting-cost" id="mintingCost">
+                    COST: 0.01 SOL (~$2.50)
+                </div>
+                
+                <div class="mint-button" id="mintButton">MINT ON TESTNET</div>
+            </div>
+            
+            <div class="minting-animation" id="mintingAnimation">
+                <div class="spinner"></div>
+                <div class="minting-text">MINTING cNFT ON SOLANA TESTNET...</div>
+            </div>
+        </div>
+        
+        <!-- Binary Translator Interface -->
+        <div class="binary-translator" id="binaryTranslator">
+            <div class="binary-header">
+                <button class="back-button" id="binaryBackButton">←</button>
+                <div class="binary-title">BINARY TRANSLATOR</div>
+                <div style="width: 30px;"></div> <!-- Spacer for alignment -->
+            </div>
+            
+            <div class="binary-content">
+                <div class="conversion-section">
+                    <div class="conversion-label">FROM:</div>
+                    <select class="conversion-dropdown" id="fromFormat">
+                        <option value="text">Text</option>
+                        <option value="binary">Binary</option>
+                        <option value="hex">Hexadecimal</option>
+                        <option value="base64">Base64</option>
+                        <option value="car-engine">Car Engine Sound</option>
+                    </select>
+                </div>
+                
+                <div class="conversion-section">
+                    <div class="conversion-label">TO:</div>
+                    <select class="conversion-dropdown" id="toFormat">
+                        <option value="binary">Binary</option>
+                        <option value="text">Text</option>
+                        <option value="hex">Hexadecimal</option>
+                        <option value="base64">Base64</option>
+                        <option value="car-engine">Car Engine Sound</option>
+                    </select>
+                </div>
+                
+                <div class="conversion-section">
+                    <div class="conversion-label">INPUT:</div>
+                    <textarea class="input-textarea" id="inputText" placeholder="Enter text or paste content here..."></textarea>
+                </div>
+                
+                <div class="convert-button" id="convertButton">CONVERT</div>
+                
+                <div class="conversion-section">
+                    <div class="conversion-label">OUTPUT:</div>
+                    <textarea class="output-textarea" id="outputText" readonly placeholder="Converted output will appear here..."></textarea>
+                    <div class="button-group">
+                        <div class="action-button" id="copyButton">COPY</div>
+                        <div class="action-button" id="clearButton">CLEAR</div>
+                        <div class="action-button" id="swapButton">SWAP</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Get DOM elements
+        const chatArea = document.getElementById('chatArea');
+        const targetMessage = document.getElementById('targetMessage');
+        const menuButton = document.getElementById('menuButton');
+        const slideMenu = document.getElementById('slideMenu');
+        const walletMenuItem = document.getElementById('walletMenuItem');
+        const binaryMenuItem = document.getElementById('binaryMenuItem');
+        const securityMenuItem = document.getElementById('securityMenuItem');
+        const customizeMenuItem = document.getElementById('customizeMenuItem');
+        const cnftMinter = document.getElementById('cnftMinter');
+        const backButton = document.getElementById('backButton');
+        const messagePreview = document.getElementById('messagePreview');
+        const mintButton = document.getElementById('mintButton');
+        const mintingAnimation = document.getElementById('mintingAnimation');
+        const messageInput = document.querySelector('.message-input');
+        const sendButton = document.querySelector('.send-button');
+        
+        // Binary Translator elements
+        const binaryTranslator = document.getElementById('binaryTranslator');
+        const binaryBackButton = document.getElementById('binaryBackButton');
+        const fromFormat = document.getElementById('fromFormat');
+        const toFormat = document.getElementById('toFormat');
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+        const convertButton = document.getElementById('convertButton');
+        const copyButton = document.getElementById('copyButton');
+        const clearButton = document.getElementById('clearButton');
+        const swapButton = document.getElementById('swapButton');
+        
+        // Payment selector elements
+        const paymentTokens = document.querySelectorAll('.payment-token');
+        const mintingCost = document.getElementById('mintingCost');
+        
+        // Toggle menu when menu button is clicked
+        menuButton.addEventListener('click', () => {
+            menuButton.classList.toggle('active');
+            slideMenu.classList.toggle('active');
+            document.querySelector('.app-container').classList.toggle('menu-open');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!menuButton.contains(event.target) && !slideMenu.contains(event.target) && slideMenu.classList.contains('active')) {
+                menuButton.classList.remove('active');
+                slideMenu.classList.remove('active');
+                document.querySelector('.app-container').classList.remove('menu-open');
+            }
+        });
+        
+        // Handle wallet menu item click (previously mint menu item)
+        if (walletMenuItem) {
+            walletMenuItem.addEventListener('click', () => {
+                menuButton.classList.remove('active');
+                slideMenu.classList.remove('active');
+                document.querySelector('.app-container').classList.remove('menu-open');
+                if (cnftMinter) {
+                    cnftMinter.classList.add('active');
+                    if (messagePreview && targetMessage) {
+                        messagePreview.textContent = targetMessage.textContent;
+                    }
+                }
+                
+                // Simulate wallet connection
+                const connectedIndicator = document.createElement('div');
+                connectedIndicator.textContent = 'WALLET CONNECTED';
+                connectedIndicator.style.backgroundColor = 'var(--neon-green)';
+                connectedIndicator.style.color = 'var(--background-dark)';
+                connectedIndicator.style.padding = '5px 10px';
+                connectedIndicator.style.borderRadius = '15px';
+                connectedIndicator.style.fontSize = '12px';
+                connectedIndicator.style.fontWeight = 'bold';
+                connectedIndicator.style.position = 'absolute';
+                connectedIndicator.style.top = '15px';
+                connectedIndicator.style.right = '70px';
+                document.querySelector('.header').appendChild(connectedIndicator);
+                
+                // Add feedback message to chat
+                const feedbackMessage = document.createElement('div');
+                feedbackMessage.className = 'message received';
+                feedbackMessage.textContent = 'Wallet connected to Solana Testnet. Ready for cNFT minting.';
+                chatArea.appendChild(feedbackMessage);
+                chatArea.scrollTop = chatArea.scrollHeight;
+                
+                // Enable message decryption for connected wallet users
+                enableMessageDecryption();
+            });
+        }
+        
+        // Handle binary translator menu item click
+        if (binaryMenuItem) {
+            binaryMenuItem.addEventListener('click', () => {
+                menuButton.classList.remove('active');
+                slideMenu.classList.remove('active');
+                document.querySelector('.app-container').classList.remove('menu-open');
+                
+                if (binaryTranslator) {
+                    binaryTranslator.classList.add('active');
+                }
+            });
+        }
+        
+        // Handle security center menu item click
+        if (securityMenuItem) {
+            securityMenuItem.addEventListener('click', () => {
+                menuButton.classList.remove('active');
+                slideMenu.classList.remove('active');
+                document.querySelector('.app-container').classList.remove('menu-open');
+                
+                // Create security center panel
+                const securityPanel = document.createElement('div');
+                securityPanel.id = 'securityPanel';
+                securityPanel.style.position = 'absolute';
+                securityPanel.style.top = '50%';
+                securityPanel.style.left = '50%';
+                securityPanel.style.transform = 'translate(-50%, -50%)';
+                securityPanel.style.width = '80%';
+                securityPanel.style.maxWidth = '300px';
+                securityPanel.style.backgroundColor = 'var(--background-dark)';
+                securityPanel.style.border = '1px solid var(--neon-orange)';
+                securityPanel.style.borderRadius = '10px';
+                securityPanel.style.padding = '20px';
+                securityPanel.style.boxShadow = '0 0 20px rgba(255, 153, 0, 0.5)';
+                securityPanel.style.zIndex = '100';
+                
+                // Add panel header
+                const panelHeader = document.createElement('div');
+                panelHeader.textContent = 'SECURITY CENTER';
+                panelHeader.style.color = 'var(--neon-orange)';
+                panelHeader.style.fontSize = '18px';
+                panelHeader.style.fontWeight = 'bold';
+                panelHeader.style.marginBottom = '20px';
+                panelHeader.style.textAlign = 'center';
+                securityPanel.appendChild(panelHeader);
+                
+                // Add security buttons
+                const buttonContainer = document.createElement('div');
+                buttonContainer.style.display = 'flex';
+                buttonContainer.style.justifyContent = 'space-between';
+                buttonContainer.style.marginBottom = '20px';
+                
+                const createSecurityButton = (text) => {
+                    const button = document.createElement('div');
+                    button.textContent = text;
+                    button.style.backgroundColor = 'var(--background-medium)';
+                    button.style.color = 'var(--neon-orange)';
+                    button.style.padding = '10px 20px';
+                    button.style.borderRadius = '5px';
+                    button.style.cursor = 'pointer';
+                    button.style.border = '1px solid var(--neon-orange)';
+                    button.style.flex = '1';
+                    button.style.textAlign = 'center';
+                    button.style.margin = '0 5px';
+                    return button;
+                };
+                
+                const encryptButton = createSecurityButton('ENCRYPT');
+                const scanButton = createSecurityButton('SCAN');
+                
+                buttonContainer.appendChild(encryptButton);
+                buttonContainer.appendChild(scanButton);
+                securityPanel.appendChild(buttonContainer);
+                
+                // Add close button
+                const closeButton = document.createElement('div');
+                closeButton.textContent = 'CLOSE';
+                closeButton.style.backgroundColor = 'var(--background-medium)';
+                closeButton.style.color = 'var(--text-color)';
+                closeButton.style.padding = '10px';
+                closeButton.style.borderRadius = '5px';
+                closeButton.style.cursor = 'pointer';
+                closeButton.style.textAlign = 'center';
+                closeButton.style.marginTop = '20px';
+                closeButton.style.border = '1px solid var(--text-color)';
+                
+                closeButton.addEventListener('click', () => {
+                    securityPanel.remove();
+                });
+                
+                securityPanel.appendChild(closeButton);
+                
+                // Add the panel to the app container
+                document.querySelector('.app-container').appendChild(securityPanel);
+                
+                // Add encrypt button functionality
+                encryptButton.addEventListener('click', () => {
+                    // Encrypt all messages in the chat
+                    const messages = document.querySelectorAll('.message');
+                    messages.forEach(message => {
+                        const originalText = message.textContent;
+                        const encryptedText = originalText.split('').map(char => {
+                            return Math.random() > 0.5 ? '█' : '▓';
+                        }).join('');
+                        
+                        message.dataset.originalText = originalText;
+                        message.textContent = encryptedText;
+                        
+                        // Add decrypt button to each message
+                        if (!message.querySelector('.decrypt-button')) {
+                            const decryptButton = document.createElement('div');
+                            decryptButton.className = 'decrypt-button';
+                            decryptButton.textContent = 'DECRYPT';
+                            decryptButton.style.marginTop = '5px';
+                            decryptButton.style.fontSize = '12px';
+                            decryptButton.style.color = 'var(--neon-orange)';
+                            decryptButton.style.cursor = 'pointer';
+                            
+                            decryptButton.addEventListener('click', function() {
+                                const messageElement = this.parentElement;
+                                messageElement.textContent = messageElement.dataset.originalText;
+                                messageElement.appendChild(this);
+                            });
+                            
+                            message.appendChild(decryptButton);
+                        }
+                    });
+                    
+                    // Add feedback message
+                    const feedbackMessage = document.createElement('div');
+                    feedbackMessage.className = 'message received';
+                    feedbackMessage.textContent = 'Maximum encryption applied. Use DECRYPT to view messages.';
+                    chatArea.appendChild(feedbackMessage);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                });
+                
+                // Add scan button functionality
+                scanButton.addEventListener('click', () => {
+                    // Create scan animation
+                    const scanAnimation = document.createElement('div');
+                    scanAnimation.style.position = 'absolute';
+                    scanAnimation.style.top = '0';
+                    scanAnimation.style.left = '0';
+                    scanAnimation.style.width = '100%';
+                    scanAnimation.style.height = '100%';
+                    scanAnimation.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                    scanAnimation.style.zIndex = '50';
+                    scanAnimation.style.pointerEvents = 'none';
+                    
+                    const scanLine = document.createElement('div');
+                    scanLine.style.position = 'absolute';
+                    scanLine.style.top = '0';
+                    scanLine.style.left = '0';
+                    scanLine.style.width = '100%';
+                    scanLine.style.height = '2px';
+                    scanLine.style.backgroundColor = 'var(--neon-orange)';
+                    scanLine.style.boxShadow = '0 0 10px var(--neon-orange)';
+                    scanLine.style.animation = 'scanEffect 2s linear';
+                    
+                    scanAnimation.appendChild(scanLine);
+                    document.querySelector('.app-container').appendChild(scanAnimation);
+                    
+                    setTimeout(() => {
+                        scanAnimation.remove();
+                        
+                        // Add scan results
+                        const feedbackMessage = document.createElement('div');
+                        feedbackMessage.className = 'message received';
+                        feedbackMessage.textContent = 'Scan complete. No security threats detected. All communications secure.';
+                        chatArea.appendChild(feedbackMessage);
+                        chatArea.scrollTop = chatArea.scrollHeight;
+                    }, 2000);
+                });
+                
+                // Add feedback message to chat
+                const feedbackMessage = document.createElement('div');
+                feedbackMessage.className = 'message received';
+                feedbackMessage.textContent = 'SECURITY CENTER activated. Choose ENCRYPT for maximum security or SCAN to detect threats.';
+                chatArea.appendChild(feedbackMessage);
+                chatArea.scrollTop = chatArea.scrollHeight;
+            });
+        }
+        
+        // Add functionality for the customize menu item
+        // customizeMenuItem is already declared above, so we don't need to declare it again
+        if (customizeMenuItem) {
+            customizeMenuItem.addEventListener('click', () => {
+                const menuButton = document.getElementById('menuButton');
+                const slideMenu = document.getElementById('slideMenu');
+                menuButton.classList.remove('active');
+                slideMenu.classList.remove('active');
+                document.querySelector('.app-container').classList.remove('menu-open');
+                
+                // Create a combined customization panel if it doesn't exist
+                if (!document.getElementById('customizationPanel')) {
+                    // Create the customization panel container
+                    const customizationPanel = document.createElement('div');
+                    customizationPanel.id = 'customizationPanel';
+                    customizationPanel.style.position = 'absolute';
+                    customizationPanel.style.top = '50%';
+                    customizationPanel.style.left = '50%';
+                    customizationPanel.style.transform = 'translate(-50%, -50%)';
+                    customizationPanel.style.width = '80%';
+                    customizationPanel.style.maxWidth = '400px';
+                    customizationPanel.style.backgroundColor = 'var(--background-dark)';
+                    customizationPanel.style.border = '1px solid var(--neon-blue)';
+                    customizationPanel.style.borderRadius = '10px';
+                    customizationPanel.style.padding = '20px';
+                    customizationPanel.style.boxShadow = '0 0 20px rgba(0, 153, 255, 0.5)';
+                    customizationPanel.style.zIndex = '1000';
+                    
+                    // Create panel header
+                    const panelHeader = document.createElement('div');
+                    panelHeader.style.display = 'flex';
+                    panelHeader.style.justifyContent = 'space-between';
+                    panelHeader.style.alignItems = 'center';
+                    panelHeader.style.marginBottom = '20px';
+                    
+                    const panelTitle = document.createElement('h2');
+                    panelTitle.textContent = 'CUSTOMIZE';
+                    panelTitle.style.color = 'var(--neon-blue)';
+                    panelTitle.style.margin = '0';
+                    
+                    const closeButton = document.createElement('button');
+                    closeButton.textContent = '×';
+                    closeButton.style.background = 'none';
+                    closeButton.style.border = 'none';
+                    closeButton.style.color = 'var(--text-color)';
+                    closeButton.style.fontSize = '24px';
+                    closeButton.style.cursor = 'pointer';
+                    closeButton.addEventListener('click', () => {
+                        customizationPanel.remove();
+                    });
+                    
+                    panelHeader.appendChild(panelTitle);
+                    panelHeader.appendChild(closeButton);
+                    customizationPanel.appendChild(panelHeader);
+                    
+                    // Create tabs for different customization categories
+                    const tabContainer = document.createElement('div');
+                    tabContainer.style.display = 'flex';
+                    tabContainer.style.marginBottom = '15px';
+                    tabContainer.style.borderBottom = '1px solid var(--background-medium)';
+                    
+                    const createTab = (id, text, isActive = false) => {
+                        const tab = document.createElement('div');
+                        tab.id = id;
+                        tab.textContent = text;
+                        tab.style.padding = '8px 15px';
+                        tab.style.cursor = 'pointer';
+                        tab.style.color = isActive ? 'var(--neon-blue)' : 'var(--text-color)';
+                        tab.style.borderBottom = isActive ? '2px solid var(--neon-blue)' : 'none';
+                        tab.addEventListener('click', () => {
+                            // Hide all content sections
+                            document.querySelectorAll('.tab-content').forEach(content => {
+                                content.style.display = 'none';
+                            });
+                            
+                            // Deactivate all tabs
+                            document.querySelectorAll('[id$="Tab"]').forEach(t => {
+                                t.style.color = 'var(--text-color)';
+                                t.style.borderBottom = 'none';
+                            });
+                            
+                            // Activate selected tab and content
+                            tab.style.color = 'var(--neon-blue)';
+                            tab.style.borderBottom = '2px solid var(--neon-blue)';
+                            const contentElement = document.getElementById(id.replace('Tab', 'Content'));
+                            if (contentElement) {
+                                contentElement.style.display = 'block';
+                            }
+                        });
+                        return tab;
+                    };
+                    
+                    const interfaceTab = createTab('interfaceTab', 'INTERFACE', true);
+                    const soundTab = createTab('soundTab', 'SOUND');
+                    const securityTab = createTab('securityTab', 'SECURITY');
+                    
+                    tabContainer.appendChild(interfaceTab);
+                    tabContainer.appendChild(soundTab);
+                    tabContainer.appendChild(securityTab);
+                    customizationPanel.appendChild(tabContainer);
+                    
+                    // Create content sections for each tab
+                    const interfaceContent = document.createElement('div');
+                    interfaceContent.id = 'interfaceContent';
+                    interfaceContent.className = 'tab-content';
+                    interfaceContent.style.display = 'block'; // Show by default
+                    interfaceContent.style.padding = '20px';
+                    interfaceContent.innerHTML = `
+                        <h3 style="color: var(--neon-green); margin-bottom: 15px;">Interface Settings</h3>
+                        <div style="margin-bottom: 15px;">
+                            <label style="color: var(--text-color); display: block; margin-bottom: 5px;">Theme:</label>
+                            <select style="background: var(--bg-color); color: var(--text-color); border: 1px solid var(--neon-green); padding: 5px; width: 100%;">
+                                <option>Cyberpunk Neon</option>
+                                <option>Dark Matrix</option>
+                                <option>Electric Blue</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="color: var(--text-color); display: block; margin-bottom: 5px;">Font Size:</label>
+                            <input type="range" min="12" max="20" value="14" style="width: 100%;">
+                        </div>
+                    `;
+                    
+                    const soundContent = document.createElement('div');
+                    soundContent.id = 'soundContent';
+                    soundContent.className = 'tab-content';
+                    soundContent.style.display = 'none';
+                    soundContent.style.padding = '20px';
+                    soundContent.innerHTML = `
+                        <h3 style="color: var(--neon-green); margin-bottom: 15px;">Sound Settings</h3>
+                        <div style="margin-bottom: 15px;">
+                            <label style="color: var(--text-color); display: block; margin-bottom: 5px;">Master Volume:</label>
+                            <input type="range" min="0" max="100" value="50" style="width: 100%;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="color: var(--text-color); display: block; margin-bottom: 5px;">Sound Effects:</label>
+                            <input type="checkbox" checked> <span style="color: var(--text-color);">Enable typing sounds</span>
+                        </div>
+                    `;
+                    
+                    const securityContent = document.createElement('div');
+                    securityContent.id = 'securityContent';
+                    securityContent.className = 'tab-content';
+                    securityContent.style.display = 'none';
+                    securityContent.style.padding = '20px';
+                    securityContent.innerHTML = `
+                        <h3 style="color: var(--neon-green); margin-bottom: 15px;">Security Settings</h3>
+                        <div style="margin-bottom: 15px;">
+                            <label style="color: var(--text-color); display: block; margin-bottom: 5px;">Auto-lock timeout:</label>
+                            <select style="background: var(--bg-color); color: var(--text-color); border: 1px solid var(--neon-green); padding: 5px; width: 100%;">
+                                <option>5 minutes</option>
+                                <option>10 minutes</option>
+                                <option>30 minutes</option>
+                                <option>Never</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <input type="checkbox"> <span style="color: var(--text-color);">Enable encryption</span>
+                        </div>
+                    `;
+                    
+                    customizationPanel.appendChild(interfaceContent);
+                     customizationPanel.appendChild(soundContent);
+                     customizationPanel.appendChild(securityContent);
+                    
+                    // Add the panel to the app container
+                    document.querySelector('.app-container').appendChild(customizationPanel);
+                } else {
+                    // If panel already exists, just show it
+                    document.getElementById('customizationPanel').style.display = 'block';
+                }
+            });
+        }
+        
+        // Handle back button clicks
+        if (backButton) {
+            backButton.addEventListener('click', () => {
+                if (cnftMinter) {
+                    cnftMinter.classList.remove('active');
+                }
+            });
+        }
+        
+        // Handle binary translator back button click
+        if (binaryBackButton) {
+            binaryBackButton.addEventListener('click', () => {
+                if (binaryTranslator) {
+                    binaryTranslator.classList.remove('active');
+                }
+            });
+        }
+        
+        // Binary conversion functions
+        function textToBinary(text) {
+            return text.split('').map(char => 
+                char.charCodeAt(0).toString(2).padStart(8, '0')
+            ).join(' ');
+        }
+        
+        function binaryToText(binary) {
+            return binary.split(' ').map(bin => 
+                String.fromCharCode(parseInt(bin, 2))
+            ).join('');
+        }
+        
+        function textToHex(text) {
+            return text.split('').map(char => 
+                char.charCodeAt(0).toString(16).padStart(2, '0')
+            ).join(' ');
+        }
+        
+        function hexToText(hex) {
+            return hex.split(' ').map(h => 
+                String.fromCharCode(parseInt(h, 16))
+            ).join('');
+        }
+        
+        function textToBase64(text) {
+            return btoa(text);
+        }
+        
+        function base64ToText(base64) {
+            try {
+                return atob(base64);
+            } catch (e) {
+                return 'Invalid Base64';
+            }
+        }
+        
+        function textToCarEngine(text) {
+            // Convert text to car engine sound patterns
+            const engineSounds = {
+                'a': 'vroom', 'b': 'purr', 'c': 'rev', 'd': 'idle', 'e': 'roar',
+                'f': 'hum', 'g': 'growl', 'h': 'rumble', 'i': 'whir', 'j': 'sputter',
+                'k': 'knock', 'l': 'tick', 'm': 'thrum', 'n': 'drone', 'o': 'boom',
+                'p': 'pop', 'q': 'squeal', 'r': 'rattle', 's': 'hiss', 't': 'tap',
+                'u': 'chug', 'v': 'vibrate', 'w': 'whine', 'x': 'exhale', 'y': 'yowl',
+                'z': 'zoom', ' ': 'pause', '0': 'zero-rpm', '1': 'low-idle',
+                '2': 'mid-idle', '3': 'high-idle', '4': 'quarter-throttle',
+                '5': 'half-throttle', '6': 'three-quarter', '7': 'full-throttle',
+                '8': 'redline', '9': 'overrev'
+            };
+            
+            return text.toLowerCase().split('').map(char => 
+                engineSounds[char] || 'unknown-sound'
+            ).join(' ');
+        }
+        
+        function carEngineToText(enginePattern) {
+            // Reverse mapping from engine sounds to text
+            const soundToChar = {
+                'vroom': 'a', 'purr': 'b', 'rev': 'c', 'idle': 'd', 'roar': 'e',
+                'hum': 'f', 'growl': 'g', 'rumble': 'h', 'whir': 'i', 'sputter': 'j',
+                'knock': 'k', 'tick': 'l', 'thrum': 'm', 'drone': 'n', 'boom': 'o',
+                'pop': 'p', 'squeal': 'q', 'rattle': 'r', 'hiss': 's', 'tap': 't',
+                'chug': 'u', 'vibrate': 'v', 'whine': 'w', 'exhale': 'x', 'yowl': 'y',
+                'zoom': 'z', 'pause': ' ', 'zero-rpm': '0', 'low-idle': '1',
+                'mid-idle': '2', 'high-idle': '3', 'quarter-throttle': '4',
+                'half-throttle': '5', 'three-quarter': '6', 'full-throttle': '7',
+                'redline': '8', 'overrev': '9'
+            };
+            
+            return enginePattern.split(' ').map(sound => 
+                soundToChar[sound] || '?'
+            ).join('');
+        }
+        
+        // Handle conversion
+        if (convertButton) {
+            convertButton.addEventListener('click', () => {
+                const input = inputText.value;
+                const from = fromFormat.value;
+                const to = toFormat.value;
+                
+                if (!input.trim()) {
+                    outputText.value = '';
+                    return;
+                }
+                
+                let result = '';
+                
+                try {
+                    // Convert from input format to text first
+                    let intermediateText = input;
+                    if (from === 'binary') {
+                        intermediateText = binaryToText(input);
+                    } else if (from === 'hex') {
+                        intermediateText = hexToText(input);
+                    } else if (from === 'base64') {
+                        intermediateText = base64ToText(input);
+                    } else if (from === 'car-engine') {
+                        intermediateText = carEngineToText(input);
+                    }
+                    
+                    // Convert from text to target format
+                    if (to === 'binary') {
+                        result = textToBinary(intermediateText);
+                    } else if (to === 'hex') {
+                        result = textToHex(intermediateText);
+                    } else if (to === 'base64') {
+                        result = textToBase64(intermediateText);
+                    } else if (to === 'car-engine') {
+                        result = textToCarEngine(intermediateText);
+                    } else {
+                        result = intermediateText;
+                    }
+                    
+                    outputText.value = result;
+                } catch (error) {
+                    outputText.value = 'Conversion Error: Invalid input format';
+                }
+            });
+        }
+        
+        // Handle copy button
+        if (copyButton) {
+            copyButton.addEventListener('click', () => {
+                if (outputText.value) {
+                    navigator.clipboard.writeText(outputText.value).then(() => {
+                        copyButton.textContent = 'COPIED!';
+                        setTimeout(() => {
+                            copyButton.textContent = 'COPY';
+                        }, 1000);
+                    });
+                }
+            });
+        }
+        
+        // Handle clear button
+        if (clearButton) {
+            clearButton.addEventListener('click', () => {
+                inputText.value = '';
+                outputText.value = '';
+            });
+        }
+        
+        // Handle swap button
+        if (swapButton) {
+            swapButton.addEventListener('click', () => {
+                const tempValue = fromFormat.value;
+                fromFormat.value = toFormat.value;
+                toFormat.value = tempValue;
+                
+                const tempText = inputText.value;
+                inputText.value = outputText.value;
+                outputText.value = tempText;
+            });
+        }
+        
+        // Handle frame selection
+        const frames = document.querySelectorAll('.frame');
+        frames.forEach(frame => {
+            frame.addEventListener('click', () => {
+                frames.forEach(f => f.classList.remove('selected'));
+                frame.classList.add('selected');
+            });
+        });
+        
+        // Handle payment token selection
+        paymentTokens.forEach(token => {
+            token.addEventListener('click', () => {
+                paymentTokens.forEach(t => t.classList.remove('selected'));
+                token.classList.add('selected');
+                updateMintingCost(token.dataset.token);
+            });
+        });
+        
+        // Initialize default payment selection (SOL)
+        const defaultPaymentToken = document.querySelector('[data-token="SOL"]');
+        if (defaultPaymentToken) {
+            defaultPaymentToken.classList.add('selected');
+            updateMintingCost('SOL');
+        }
+        
+        // Function to update minting cost based on selected token
+        function updateMintingCost(selectedToken) {
+            const costs = {
+                'SOL': { amount: '0.01', usd: '$2.50' },
+                'BONK': { amount: '50,000', usd: '$2.50' },
+                'USDC': { amount: '2.50', usd: '$2.50' }
+            };
+            
+            const cost = costs[selectedToken] || costs['SOL'];
+            mintingCost.textContent = `COST: ${cost.amount} ${selectedToken} (~${cost.usd})`;
+        }
+        
+        // Handle mint button click
+        if (mintButton) {
+            mintButton.addEventListener('click', () => {
+                if (mintingAnimation) {
+                    // Get selected frame and payment token
+                    const selectedFrame = document.querySelector('.frame.selected');
+                    const selectedPayment = document.querySelector('.payment-token.selected');
+                    const frameType = selectedFrame ? selectedFrame.textContent : 'F1';
+                    const paymentToken = selectedPayment ? selectedPayment.dataset.token : 'SOL';
+                    
+                    // Update minting text with frame and payment info
+                    const mintingText = document.querySelector('.minting-text');
+                    if (mintingText) {
+                        mintingText.textContent = `MINTING cNFT WITH ${frameType} FRAME USING ${paymentToken} ON SOLANA TESTNET...`;
+                    }
+                    
+                    mintingAnimation.classList.add('active');
+                    
+                    // Simulate minting process with frame-specific logic
+                    setTimeout(() => {
+                        mintingAnimation.classList.remove('active');
+                        cnftMinter.classList.remove('active');
+                        
+                        // Generate frame-specific transaction ID and metadata
+                        const frameMetadata = {
+                            'F1': { style: 'Holographic', rarity: 'Common', txPrefix: '5Vz2S6' },
+                            'F2': { style: 'Neon Glow', rarity: 'Uncommon', txPrefix: '7Hx4K9' },
+                            'F3': { style: 'Cyber Matrix', rarity: 'Rare', txPrefix: '9Qw7L2' },
+                            'F4': { style: 'Quantum Flux', rarity: 'Legendary', txPrefix: 'B3m8N5' }
+                        };
+                        
+                        const paymentCosts = {
+                            'SOL': '0.01 SOL',
+                            'BONK': '50,000 BONK',
+                            'USDC': '2.50 USDC'
+                        };
+                        
+                        const metadata = frameMetadata[frameType] || frameMetadata['F1'];
+                        const cost = paymentCosts[paymentToken] || paymentCosts['SOL'];
+                        const txId = `${metadata.txPrefix}rVkYxBHwYjhZ9PxGDnRVwz7HnD4ycSHNGvnY7K`;
+                        
+                        // Add success message to chat with frame and payment details
+                        const successMessage = document.createElement('div');
+                        successMessage.className = 'message received';
+                        successMessage.textContent = `cNFT successfully minted on Solana Testnet! Frame: ${frameType} (${metadata.style} - ${metadata.rarity}) | Payment: ${cost} | Transaction ID: ${txId}`;
+                        chatArea.appendChild(successMessage);
+                        chatArea.scrollTop = chatArea.scrollHeight;
+                        
+                        // Add metadata message
+                        setTimeout(() => {
+                            const metadataMessage = document.createElement('div');
+                            metadataMessage.className = 'message received';
+                            metadataMessage.textContent = `NFT Metadata: Style=${metadata.style}, Rarity=${metadata.rarity}, Frame=${frameType}, Payment=${paymentToken}, Network=Testnet`;
+                            chatArea.appendChild(metadataMessage);
+                            chatArea.scrollTop = chatArea.scrollHeight;
+                            
+                            // Update wallet balances after successful minting
+                            setTimeout(() => {
+                                updateWalletBalances(paymentToken, cost);
+                            }, 500);
+                        }, 1000);
+                    }, 3000);
+                }
+            });
+        }
+        
+        // Function to update wallet balances after minting
+        function updateWalletBalances(paymentToken, cost) {
+            const balanceUpdates = {
+                'SOL': { newBalance: '2.44', spent: '0.01' },
+                'BONK': { newBalance: '1.15M', spent: '50K' },
+                'USDC': { newBalance: '13.30', spent: '2.50' }
+            };
+            
+            const update = balanceUpdates[paymentToken];
+            if (update) {
+                // Update the balance display in the payment selector
+                const tokenElement = document.querySelector(`[data-token="${paymentToken}"] .token-balance`);
+                if (tokenElement) {
+                    tokenElement.textContent = update.newBalance;
+                }
+                
+                // Add balance update message to chat
+                const balanceMessage = document.createElement('div');
+                balanceMessage.className = 'message received';
+                balanceMessage.textContent = `Wallet updated: -${update.spent} ${paymentToken}. New balance: ${update.newBalance} ${paymentToken}`;
+                chatArea.appendChild(balanceMessage);
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }
+        }
+        
+        // Enable message decryption for connected wallet users
+        function enableMessageDecryption() {
+            const messages = document.querySelectorAll('.message');
+            messages.forEach(message => {
+                // Only add decrypt functionality to received messages
+                if (message.classList.contains('received') && !message.querySelector('.wallet-decrypt-btn')) {
+                    const decryptBtn = document.createElement('div');
+                    decryptBtn.className = 'wallet-decrypt-btn';
+                    decryptBtn.textContent = '🔓 DECRYPT';
+                    decryptBtn.style.cssText = `
+                        margin-top: 5px;
+                        padding: 3px 8px;
+                        background: linear-gradient(45deg, var(--neon-blue), var(--neon-cyan));
+                        color: var(--background-dark);
+                        font-size: 10px;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        display: inline-block;
+                        font-weight: bold;
+                        transition: all 0.3s ease;
+                    `;
+                    
+                    decryptBtn.addEventListener('click', function() {
+                        const messageText = message.textContent.replace('🔓 DECRYPT', '').trim();
+                        
+                        // Simulate decryption process
+                        this.textContent = '🔄 DECRYPTING...';
+                        this.style.background = 'linear-gradient(45deg, var(--neon-orange), var(--neon-yellow))';
+                        
+                        setTimeout(() => {
+                            // Show decrypted content
+                            const decryptedContent = `[DECRYPTED] ${messageText} [WALLET VERIFIED: ${Math.random().toString(36).substr(2, 8).toUpperCase()}]`;
+                            message.innerHTML = decryptedContent;
+                            
+                            // Add verification badge
+                            const verifyBadge = document.createElement('div');
+                            verifyBadge.textContent = '✓ WALLET VERIFIED';
+                            verifyBadge.style.cssText = `
+                                margin-top: 5px;
+                                padding: 2px 6px;
+                                background: var(--neon-green);
+                                color: var(--background-dark);
+                                font-size: 9px;
+                                border-radius: 8px;
+                                display: inline-block;
+                                font-weight: bold;
+                            `;
+                            message.appendChild(verifyBadge);
+                        }, 1500);
+                    });
+                    
+                    message.appendChild(decryptBtn);
+                }
+            });
+        }
+        
+        // Handle message sending
+        function sendMessage() {
+            const messageText = messageInput.value.trim();
+            if (messageText) {
+                // Create and add the sent message
+                const sentMessage = document.createElement('div');
+                sentMessage.className = 'message sent';
+                sentMessage.textContent = messageText;
+                chatArea.appendChild(sentMessage);
+                
+                // Clear the input
+                messageInput.value = '';
+                
+                // Simulate a response
+                setTimeout(() => {
+                    const responseMessage = document.createElement('div');
+                    responseMessage.className = 'message received';
+                    
+                    // Generate a response based on the message content
+                    if (messageText.toLowerCase().includes('binary')) {
+                        responseMessage.textContent = 'Binary translation complete. Car sound pattern identified: Engine optimization required.';
+                    } else if (messageText.toLowerCase().includes('encrypt')) {
+                        responseMessage.textContent = 'Encryption level increased. Communications secure.';
+                    } else if (messageText.toLowerCase().includes('wallet')) {
+                        responseMessage.textContent = 'Wallet connected to Solana Testnet. Balance: 5 SOL';
+                    } else {
+                        responseMessage.textContent = 'Message received and encrypted. Awaiting further instructions.';
+                    }
+                    
+                    chatArea.appendChild(responseMessage);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                }, 1000);
+                
+                // Scroll to the bottom of the chat
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }
+        }
+        
+        // Add event listeners for sending messages
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Responsive design adjustments
+        function checkMobile() {
+            if (window.innerWidth <= 768) {
+                // Mobile-specific adjustments
+                document.querySelector('.app-container').style.width = '100%';
+                document.querySelector('.app-container').style.height = '100vh';
+                document.querySelector('.app-container').style.margin = '0';
+                document.querySelector('.app-container').style.borderRadius = '0';
+            } else {
+                // Desktop adjustments
+                document.querySelector('.app-container').style.width = '360px';
+                document.querySelector('.app-container').style.height = '640px';
+                document.querySelector('.app-container').style.margin = '20px auto';
+                document.querySelector('.app-container').style.borderRadius = '20px';
+            }
+        }
+        
+        // Run on load and resize
+        window.addEventListener('load', checkMobile);
+        window.addEventListener('resize', checkMobile);
+    </script>
+</body>
+</html>

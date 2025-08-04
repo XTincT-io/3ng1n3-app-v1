@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cyberpunk_background_dark"
+    tools:context=".ui.CNFTMinterActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cyberpunk_background_darker">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/neon_green"
+            app:subtitleTextColor="@color/neon_blue" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Message Input Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cnft_message_input_label"
+                android:textColor="@color/neon_blue"
+                android:textSize="16sp"
+                android:fontFamily="@font/cyber_font" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:boxBackgroundColor="@color/cyberpunk_background_medium"
+                app:boxStrokeColor="@color/neon_green"
+                app:hintTextColor="@color/neon_green">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/messageContentInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cnft_message_input_hint"
+                    android:textColor="@color/text_primary"
+                    android:inputType="textMultiLine"
+                    android:minLines="2"
+                    android:maxLines="4" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/generateButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/generate_preview"
+                android:textColor="@color/text_on_accent"
+                android:backgroundTint="@color/neon_blue"
+                android:fontFamily="@font/cyber_font" />
+
+            <!-- Preview Section -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="@color/cyberpunk_background_darker"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cnft_preview_label"
+                        android:textColor="@color/neon_green"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/cyber_font"
+                        android:padding="16dp" />
+
+                    <FrameLayout
+                        android:id="@+id/previewContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:background="@color/cyberpunk_background_darkest">
+
+                        <!-- Preview Image -->
+                        <ImageView
+                            android:id="@+id/previewImageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitCenter"
+                            android:contentDescription="@string/cnft_preview_description" />
+
+                        <!-- Placeholder when no preview is available -->
+                        <TextView
+                            android:id="@+id/previewPlaceholder"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/cnft_preview_placeholder"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="16sp" />
+
+                        <!-- Holographic Overlay -->
+                        <View
+                            android:id="@+id/holographicOverlay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/holographic_gradient"
+                            android:alpha="0.4" />
+
+                        <!-- Frame Overlay -->
+                        <View
+                            android:id="@+id/frameOverlay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/frame_holographic" />
+
+                        <!-- Signature Overlay for minting animation -->
+                        <View
+                            android:id="@+id/signatureOverlay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/signature_overlay"
+                            android:visibility="gone" />
+
+                        <!-- Loading Progress -->
+                        <ProgressBar
+                            android:id="@+id/previewProgressBar"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:indeterminateTint="@color/neon_green"
+                            android:visibility="gone" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Frame Selection Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/cnft_frame_selection_label"
+                android:textColor="@color/neon_blue"
+                android:textSize="16sp"
+                android:fontFamily="@font/cyber_font" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:id="@+id/frameHolographic"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/frame_preview_holographic"
+                    android:scaleType="centerCrop"
+                    android:padding="4dp"
+                    android:background="@drawable/frame_unselected"
+                    android:contentDescription="@string/frame_holographic_description" />
+
+                <ImageView
+                    android:id="@+id/frameGlitch"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/frame_preview_glitch"
+                    android:scaleType="centerCrop"
+                    android:padding="4dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/frame_unselected"
+                    android:contentDescription="@string/frame_glitch_description" />
+
+                <ImageView
+                    android:id="@+id/frameDatastream"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/frame_preview_datastream"
+                    android:scaleType="centerCrop"
+                    android:padding="4dp"
+                    android:background="@drawable/frame_unselected"
+                    android:contentDescription="@string/frame_datastream_description" />
+
+            </LinearLayout>
+
+            <!-- Customization Button -->
+            <Button
+                android:id="@+id/customizeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/customize_cnft"
+                android:textColor="@color/text_on_accent"
+                android:backgroundTint="@color/neon_purple"
+                android:fontFamily="@font/cyber_font"
+                android:enabled="false" />
+
+            <!-- Customization Panel (Hidden by default) -->
+            <LinearLayout
+                android:id="@+id/customizationPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/panel_background"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <!-- Glitch Intensity Slider -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/glitch_intensity_label"
+                    android:textColor="@color/neon_orange"
+                    android:textSize="14sp" />
+
+                <SeekBar
+                    android:id="@+id/glitchIntensitySlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:max="100"
+                    android:progress="50"
+                    android:progressTint="@color/neon_orange"
+                    android:thumbTint="@color/neon_orange" />
+
+                <!-- Neon Color Selection -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/neon_color_label"
+                    android:textColor="@color/neon_orange"
+                    android:textSize="14sp" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/colorGreen"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/color_selector"
+                            android:backgroundTint="@color/neon_green" />
+
+                        <View
+                            android:id="@+id/colorBlue"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/color_selector"
+                            android:backgroundTint="@color/neon_blue" />
+
+                        <View
+                            android:id="@+id/colorPurple"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/color_selector"
+                            android:backgroundTint="@color/neon_purple" />
+
+                        <View
+                            android:id="@+id/colorOrange"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/color_selector"
+                            android:backgroundTint="@color/neon_orange" />
+
+                        <View
+                            android:id="@+id/colorRed"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/color_selector"
+                            android:backgroundTint="@color/neon_red" />
+
+                        <View
+                            android:id="@+id/colorCyan"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/color_selector"
+                            android:backgroundTint="@color/neon_cyan" />
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+            </LinearLayout>
+
+            <!-- Mint Button -->
+            <Button
+                android:id="@+id/mintButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/mint_cnft"
+                android:textColor="@color/text_on_accent"
+                android:backgroundTint="@color/neon_green"
+                android:fontFamily="@font/cyber_font"
+                android:textSize="18sp"
+                android:padding="16dp"
+                android:enabled="false" />
+
+            <!-- Minting Status -->
+            <LinearLayout
+                android:id="@+id/mintingStatusContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/status_background"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/mintingStatusText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minting_in_progress"
+                    android:textColor="@color/neon_green"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/cyber_font" />
+
+                <ProgressBar
+                    android:id="@+id/mintingProgressBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:indeterminate="true"
+                    android:progressTint="@color/neon_green" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

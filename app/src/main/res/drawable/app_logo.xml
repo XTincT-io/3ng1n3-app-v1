@@ -1,0 +1,88 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Dark Background Circle -->
+    <path
+        android:fillColor="@color/cyberpunk_background_dark"
+        android:pathData="M100,100m-95,0a95,95 0,1 1,190 0a95,95 0,1 1,-190 0" />
+
+    <!-- Outer Neon Ring -->
+    <path
+        android:strokeColor="@color/neon_green"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M100,100m-90,0a90,90 0,1 1,180 0a90,90 0,1 1,-180 0" />
+
+    <!-- Inner Neon Ring with Dash Effect -->
+    <path
+        android:strokeColor="@color/neon_blue"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeDashArray="5,5"
+        android:pathData="M100,100m-80,0a80,80 0,1 1,160 0a80,80 0,1 1,-160 0" />
+
+    <!-- Engine Symbol - Stylized "3" -->
+    <path
+        android:strokeColor="@color/neon_green"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M80,60 C100,60 110,75 100,85 C110,95 100,110 80,110" />
+
+    <!-- Engine Symbol - Stylized "N" -->
+    <path
+        android:strokeColor="@color/neon_cyan"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M90,120 L90,150 L110,120 L110,150" />
+
+    <!-- Engine Symbol - Stylized "G" -->
+    <path
+        android:strokeColor="@color/neon_purple"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M130,60 C150,60 150,85 130,85 L130,110 C150,110 150,85 140,85" />
+
+    <!-- Circuit Lines -->
+    <path
+        android:strokeColor="@color/neon_orange"
+        android:strokeWidth="1"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M30,100 L60,100 M140,100 L170,100 M100,30 L100,60 M100,140 L100,170" />
+
+    <!-- Circuit Nodes -->
+    <path
+        android:fillColor="@color/neon_orange"
+        android:pathData="M30,100m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0 M170,100m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0 M100,30m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0 M100,170m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0" />
+
+    <!-- Binary Code Overlay -->
+    <path
+        android:strokeColor="@color/neon_green"
+        android:strokeWidth="0.5"
+        android:strokeAlpha="0.3"
+        android:strokeLineCap="round"
+        android:pathData="M40,40 L45,40 M50,40 L55,40 M65,40 L70,40 M40,45 L45,45 M55,45 L60,45 M40,50 L45,50 M50,50 L55,50 M65,50 L70,50" />
+
+    <!-- Glitch Effect Lines -->
+    <path
+        android:strokeColor="@color/neon_red"
+        android:strokeWidth="1"
+        android:strokeAlpha="0.5"
+        android:strokeLineCap="round"
+        android:pathData="M70,160 L130,160 M75,165 L125,165 M80,170 L120,170" />
+
+    <!-- Scan Line Effect -->
+    <path
+        android:strokeColor="@color/neon_cyan"
+        android:strokeWidth="0.5"
+        android:strokeAlpha="0.2"
+        android:pathData="M20,30 L180,30 M20,50 L180,50 M20,70 L180,70 M20,90 L180,90 M20,110 L180,110 M20,130 L180,130 M20,150 L180,150 M20,170 L180,170" />
+</vector>

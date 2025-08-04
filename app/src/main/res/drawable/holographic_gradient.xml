@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base gradient with rainbow-like holographic effect -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#2000FFFF"
+                android:centerColor="#2000FF00"
+                android:endColor="#20FF00FF" />
+        </shape>
+    </item>
+    
+    <!-- Horizontal scan lines -->
+    <item>
+        <bitmap
+            android:src="@drawable/scan_lines"
+            android:tileMode="repeat"
+            android:alpha="0.15" />
+    </item>
+    
+    <!-- Subtle noise texture -->
+    <item>
+        <bitmap
+            android:src="@drawable/noise_texture"
+            android:tileMode="repeat"
+            android:alpha="0.1" />
+    </item>
+    
+    <!-- Highlight edge -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="1dp"
+                android:color="#5000FFFF" />
+            <corners android:radius="2dp" />
+        </shape>
+    </item>
+</layer-list>

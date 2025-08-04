@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_dark">
+
+    <com.engine.app.ui.components.BinaryDisplayView
+        android:id="@+id/binary_display"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="4dp"
+        app:baseColor="@color/neon_green_dim"
+        app:highlightColor="@color/neon_green"
+        app:density="0.8"
+        app:highlightProbability="0.15"
+        app:scrollSpeed="3"
+        app:showScanLines="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="top"
+        android:background="@color/neon_green" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/neon_green" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_margin="4dp"
+        android:background="@color/background_dark"
+        android:fontFamily="@font/cyber_font"
+        android:paddingHorizontal="8dp"
+        android:text="@string/binary_data_stream"
+        android:textColor="@color/neon_green"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/binary_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="4dp"
+        android:background="@color/background_dark"
+        android:fontFamily="@font/led_board"
+        android:paddingHorizontal="8dp"
+        android:text="@string/decoding"
+        android:textColor="@color/neon_orange"
+        android:textSize="12sp" />
+</FrameLayout>
